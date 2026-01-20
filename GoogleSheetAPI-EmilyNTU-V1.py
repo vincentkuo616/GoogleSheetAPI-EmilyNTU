@@ -270,7 +270,7 @@ if worksheet_media is None:
     print("⚠️ 因 Sheet 1 無法連接，跳過媒體資料寫入步驟。")
 else:
     STANDARD_INSIGHT_METRICS = 'reach,saved,shares,total_interactions,views' # 不含 Reels 的指標
-    all_ids = all_ids[:10]
+    # all_ids = all_ids[:10]
 
     for media_id in all_ids:
         # --- A. 呼叫 Media API (獲取基礎數據) ---
@@ -501,7 +501,7 @@ else:
     STANDARD_INSIGHT_METRICS = 'reach,saved,shares,total_interactions,views' # 不含 Reels 的指標
     index = 1
 
-    detail_ids = detail_ids[:10]
+    # detail_ids = detail_ids[:10]
 
     for media_id in detail_ids:
         # --- A. 呼叫 Media API (獲取基礎數據) ---
