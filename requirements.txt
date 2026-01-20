@@ -2,6 +2,5 @@ gspread
 google-auth
 requests
 pandas
-os
 json
 google.oauth2.service_account.Credentials
