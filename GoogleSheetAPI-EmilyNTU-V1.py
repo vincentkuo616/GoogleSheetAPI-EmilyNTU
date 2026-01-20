@@ -4,7 +4,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 # Import necessary libraries
 import requests
-from google.colab import auth
 from datetime import datetime
 import time
 # 引入 google.auth 模組
