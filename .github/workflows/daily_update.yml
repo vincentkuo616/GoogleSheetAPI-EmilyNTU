@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 讓 Action 有權限更新 Repo 狀態
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -26,3 +28,7 @@ jobs:
           GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: python GoogleSheetAPI-EmilyNTU-V1.py # 記得把這行改成你實際的檔名
+
+      # 防止 60 天不活動被暫停
+      - name: Keepalive Workflow
+        uses: gautamkrishnar/keepalive-workflow@v1
