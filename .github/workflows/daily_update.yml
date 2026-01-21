@@ -27,7 +27,7 @@ jobs:
         env:
           GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-        run: python GoogleSheetAPI-EmilyNTU-V1.py # 記得把這行改成你實際的檔名
+        run: python GoogleSheetAPI-EmilyNTU-V2.py # 記得把這行改成你實際的檔名
 
       # 防止 60 天不活動被暫停
       - name: Keepalive Workflow
