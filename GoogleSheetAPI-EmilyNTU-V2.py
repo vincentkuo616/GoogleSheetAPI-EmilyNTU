@@ -661,11 +661,7 @@ else:
 end_time = time.time()
 duration = round(end_time - start_time, 2) # 執行秒數
 
-log_content = f"""
-執行日期: {current_datetime}
-執行耗時: {duration} 秒
-狀態: 執行完畢
------------------------
+log_content = f"""執行日期: {current_datetime}   執行耗時: {duration} 秒   狀態: 執行完畢   -----------------------
 """
 
 # 將 LOG 寫入檔案
