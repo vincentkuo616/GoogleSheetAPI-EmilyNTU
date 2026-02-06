@@ -27,7 +27,24 @@ jobs:
         env:
           GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-        run: python GoogleSheetAPI-EmilyNTU-V2.py # 記得把這行改成你實際的檔名
+        run: |
+          # 記錄開始時間 (秒)
+          START_TIME=$(date +%s)
+          
+          python GoogleSheetAPI-EmilyNTU-V2.py # 記得把這行改成你實際的檔名
+
+          # 記錄結束時間 (秒)
+          END_TIME=$(date +%s)
+
+          # 計算執行時間
+          DURATION=$((END_TIME - START_TIME))
+          echo "執行耗時: $DURATION 秒"
+          
+          # 如果耗時小於 60 秒，視為 Token 失效並報錯
+          if [ $DURATION -lt 60 ]; then
+            echo "Error: 執行時間過短 ($DURATION 秒)，可能是 Token 已失效或發生異常，請檢查並更新 TOKEN！"
+            exit 1
+          fi
 
       # 防止 60 天不活動被暫停
       # - name: Keepalive Workflow
