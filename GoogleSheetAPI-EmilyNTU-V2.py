@@ -15,6 +15,14 @@ import gspread.exceptions
 # --- 0. 初始化計時與日誌準備 ---
 start_time = time.time()
 current_datetime = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+current_date_filename = 'GoogleSheetAPI-EmilyNTU-V2_LOG' # 檔名建議用 - 避免路徑問題
+
+# 建立 LOG 資料夾 (如果不存在)
+log_dir = "LOG"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+log_file_path = os.path.join(log_dir, f"{current_date_filename}.txt")
 
 # # 1. 定義權限範圍
 # scopes = [
@@ -649,9 +657,25 @@ current_datetime = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 #     print("\n所有媒體資料處理完畢。請到您的 Google Drive 檢查試算表。")
 
 
-# --- 99. 結算時間與寫入 LOG 改寫於 yml 檔案 ---
+# --- 99. 結算時間與寫入 LOG ---
+
 time.sleep(60)
 end_time = time.time()
 duration = round(end_time - start_time, 2) # 執行秒數
 
+log_content = f"""執行日期: {current_datetime}   執行耗時: {duration} 秒   狀態: 執行完畢   -----------------------"""
+
+# 檢查路徑是否存在，如果不存在則檢查父目錄
+readable = os.access(log_file_path, os.R_OK)  # 檢查讀取權限 (R)
+writable = os.access(log_file_path, os.W_OK)  # 檢查寫入權限 (W)
+executable = os.access(log_file_path, os.X_OK) # 檢查執行/進入權限 (X)
+print(f"路徑: {log_file_path}")
+print(f"可讀: {readable}, 可寫: {writable}, 可進入: {executable}")
+
+# 將 LOG 寫入檔案
+
+with open(log_file_path, "a", encoding="utf-8") as f:
+    f.write(log_content)
+
+print(f"LOG 已寫入: {log_file_path}")
 print(f"本次執行總耗時: {duration} 秒")
