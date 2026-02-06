@@ -46,6 +46,13 @@ jobs:
             exit 1
           fi
 
+      - name: Debug LOG content
+        run: |
+          echo "--- 檢查檔案是否存在與內容 ---"
+          ls -l LOG/GoogleSheetAPI-EmilyNTU-V2_LOG.txt
+          cat LOG/GoogleSheetAPI-EmilyNTU-V2_LOG.txt
+          echo "--- 檢查結束 ---"
+
       # --- 新增以下步驟來將 LOG 推回 GitHub ---
       - name: Commit and Push LOG
         run: |
