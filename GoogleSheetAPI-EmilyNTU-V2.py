@@ -12,6 +12,18 @@ from google.auth.transport.requests import AuthorizedSession
 # 由於您在 Section 3 嘗試使用 open/create 邏輯，需要引入 gspread.exceptions
 import gspread.exceptions
 
+# --- 0. 初始化計時與日誌準備 ---
+start_time = time.time()
+current_datetime = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+current_date_filename = 'GoogleSheetAPI-EmilyNTU-V2_LOG' # 檔名建議用 - 避免路徑問題
+
+# 建立 LOG 資料夾 (如果不存在)
+log_dir = "LOG"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+log_file_path = os.path.join(log_dir, f"{current_date_filename}.txt")
+
 # 1. 定義權限範圍
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -643,3 +655,22 @@ else:
         time.sleep(0.5)
 
     print("\n所有媒體資料處理完畢。請到您的 Google Drive 檢查試算表。")
+
+
+# --- 99. 結算時間與寫入 LOG ---
+end_time = time.time()
+duration = round(end_time - start_time, 2) # 執行秒數
+
+log_content = f"""
+執行日期: {current_datetime}
+執行耗時: {duration} 秒
+狀態: 執行完畢
+-----------------------
+"""
+
+# 將 LOG 寫入檔案
+with open(log_file_path, "a", encoding="utf-8") as f:
+    f.write(log_content)
+
+print(f"LOG 已寫入: {log_file_path}")
+print(f"本次執行總耗時: {duration} 秒")
