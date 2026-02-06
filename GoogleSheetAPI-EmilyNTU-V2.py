@@ -663,19 +663,27 @@ time.sleep(60)
 end_time = time.time()
 duration = round(end_time - start_time, 2) # 執行秒數
 
-log_content = f"""執行日期: {current_datetime}   執行耗時: {duration} 秒   狀態: 執行完畢   -----------------------"""
+# 1. 準備新的一行內容，記得結尾要加 \n
+# 這裡使用 f-string，並在最後面加上 \n 確保下一筆會換行
+new_log = f"執行日期: {current_datetime}   執行耗時: {duration} 秒   狀態: 執行完畢   -----------------------\n"
 
-# 檢查路徑是否存在，如果不存在則檢查父目錄
-readable = os.access(log_file_path, os.R_OK)  # 檢查讀取權限 (R)
-writable = os.access(log_file_path, os.W_OK)  # 檢查寫入權限 (W)
-executable = os.access(log_file_path, os.X_OK) # 檢查執行/進入權限 (X)
-print(f"路徑: {log_file_path}")
-print(f"可讀: {readable}, 可寫: {writable}, 可進入: {executable}")
+# 2. 實作「最新筆放在最前面」的邏輯
+try:
+    existing_content = ""
+    # 如果檔案已存在，先讀取舊內容
+    if os.path.exists(log_file_path):
+        with open(log_file_path, "r", encoding="utf-8") as f:
+            existing_content = f.read()
 
-# 將 LOG 寫入檔案
+    # 3. 將新內容放在最前面，舊內容接在後面
+    full_content = new_log + existing_content
 
-with open(log_file_path, "a", encoding="utf-8") as f:
-    f.write(log_content)
+    # 4. 以 "w" (寫入模式) 覆蓋原有檔案
+    with open(log_file_path, "w", encoding="utf-8") as f:
+        f.write(full_content)
 
-print(f"LOG 已寫入: {log_file_path}")
-print(f"本次執行總耗時: {duration} 秒")
+    print(f"LOG 已寫入 (最新置頂): {log_file_path}")
+except Exception as e:
+    print(f"寫入 LOG 發生錯誤: {e}")
+
+print(f"本次執行總耗時: {duration} 秒")} 秒")
