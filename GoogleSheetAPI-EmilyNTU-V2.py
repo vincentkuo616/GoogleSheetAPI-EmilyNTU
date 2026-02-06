@@ -686,4 +686,4 @@ try:
 except Exception as e:
     print(f"寫入 LOG 發生錯誤: {e}")
 
-print(f"本次執行總耗時: {duration} 秒")} 秒")
+print(f"本次執行總耗時: {duration} 秒")
