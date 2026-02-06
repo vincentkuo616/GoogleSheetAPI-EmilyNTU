@@ -658,8 +658,6 @@ else:
 
 
 # --- 99. 結算時間與寫入 LOG ---
-
-time.sleep(60)
 end_time = time.time()
 duration = round(end_time - start_time, 2) # 執行秒數
 
