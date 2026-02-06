@@ -676,5 +676,6 @@ print(f"可讀: {readable}, 可寫: {writable}, 可進入: {executable}")
 with open(log_file_path, "a", encoding="utf-8") as f:
     f.write(log_content)
 
+print(f"確認絕對路徑: {os.path.abspath(log_file_path)}")
 print(f"LOG 已寫入: {log_file_path}")
 print(f"本次執行總耗時: {duration} 秒")
