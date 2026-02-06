@@ -46,6 +46,16 @@ jobs:
             exit 1
           fi
 
+      # --- 新增以下步驟來將 LOG 推回 GitHub ---
+      - name: Commit and Push LOG
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add LOG/GoogleSheetAPI-EmilyNTU-V2_LOG.txt
+          # 只有在檔案有變動時才 commit，避免沒有變動時報錯
+          git commit -m "Auto-update LOG: $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push
+
       # 防止 60 天不活動被暫停
       # - name: Keepalive Workflow
         # uses: gautamkrishnar/keepalive-workflow@v1
